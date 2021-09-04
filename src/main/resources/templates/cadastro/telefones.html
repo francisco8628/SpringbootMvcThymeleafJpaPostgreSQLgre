@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
+	media="screen,projection" />
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+
+
+	<div class="container">
+		<h1>Detalhes da Pessoa</h1>
+
+		<a href="/cadastropessoa"><button
+				class="waves-effect waves-light btn-large">Voltar</button> </a>
+
+		<div th:each="p: ${pessoaobj}" class="pessoas-detalhes">
+			<div class="row">
+				<p>
+					ID :<span th:text="${p.id}"></span>
+				</p>
+				<p>
+					Nome :<span th:text="${p.nome}"></span>
+				</p>
+				<p>
+					Sobrenome :<span th:text="${p.sobrenome}"></span>
+				</p>
+				<p>
+					Idade :<span th:text="${p.idade}"></span>
+				</p>
+			</div>
+
+
+			<div class="row form-telefone-div">
+				<h5>Telefones</h5>
+
+				<br/>
+				<div th:each="m : ${msg}">
+					<span th:text="${m}"></span>
+				</div>
+				<br/>
+
+				<form
+					th:action="@{/addfonePessoa/{pessoaid}(pessoaid=${pessoaobj.id})}"
+					method="post" class="col s12 form-telefone" onsubmit="return validarCampos()?true : false">
+					<div class="col s6">
+						<label for="numero">Numero:</label> <input id="numero"
+							name="numero">
+					</div>
+					<div class="col s6">
+						<label for="tipo">Tipo:</label> <input id="tipo" name="tipo">
+					</div>
+					<input type="submit" class="waves-effect  blue darken-4 btn-large"
+						value="Adicionar">
+				</form>
+				<!-- form-telefone -->
+			</div>
+			<!-- form-telefone-div -->
+
+			<div class="table-lista-telefones row">
+				<table class="striped">
+					<thead>
+						<tr>
+							<th>Numero</th>
+							<th>Tipo</th>
+							<th>Excluir</th>
+						</tr>
+					</thead>
+					<tr th:each="fone :${telefones}">
+						<td th:text="${fone.numero}" />
+						<td th:text="${fone.tipo}" />
+						<td><a
+							th:href="@{/removertelefone/{idtelefone}(idtelefone=${fone.id})}">
+								<button class="waves-effect  red darken-2 btn-large">Excluir</button>
+						</a></td>
+					</tr>
+				</table>
+			</div>
+			<!-- table-lista-telefones -->
+		</div>
+		<!-- pessoas-detalhes -->
+	</div>
+	<!--container-->
+
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript">	
+	function validarCampos(){
+		 
+		
+		   var numero = document.getElementById('numero').value;
+		   
+		   var tipo = document.getElementById('tipo').value;
+		   
+		   if(numero === ''){
+		       alert('o numero deve ser informado');
+		   }
+		   else if(tipo === ''){
+		    alert('o tipo  deve ser informado');
+		   }
+		    
+		   //alert('chamado');
+		    return true;
+		}
+	</script>
+</body>
+
+</html>

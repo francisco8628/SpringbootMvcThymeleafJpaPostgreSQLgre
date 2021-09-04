@@ -1,0 +1,13 @@
+h1{
+	margin: 10px auto;
+	/*background-color: red;*/
+	text-align: center;
+}
+
+.pessoas-detalhes{
+	font-size:22px;
+}
+.pessoas-detalhes p{
+	border-bottom: 2px solid black;
+	color: #6192c9;
+}
